@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainstyle.css">
+    <title>Time Shift</title>
+</head>
+<body>
+    <div class="converter-container">
+        <h1>Time Zone Converter</h1>
+        <label for="inputDatetime">Enter Date and Time:</label>
+        <input type="datetime-local" id="inputDatetime">
+
+        <label for="fromTimezone">From Time Zone</label>
+        <select id="fromTimezone"></select>
+
+        <label for="toTimezone">To Time Zone:</label>
+        <select id="toTimezone"></select>
+
+        <button id="convertBtn">Convert</button>
+
+        <h2 id="result"></h2>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
