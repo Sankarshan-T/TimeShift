@@ -1,49 +1,197 @@
-body {
-    font-family: sans-serif;
+/* --- FONTS & RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Nerko One', cursive;
+    background: #121212;
+    color: #fff;
+    min-height: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* --- HEADER --- */
+header {
+    width: 100%;
+    padding: 10px 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(18,18,18,0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #222;
+}
+
+header .logo {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.8em;
+    text-decoration: none;
+    color: #00f0ff;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #a259ff;
+}
+
+/* --- HERO SECTION --- */
+section#home {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0;
+    height: 100vh;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero .heading {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 5em;
+    line-height: 1.2;
+    color: #00f0ff;
+    text-shadow: 0 0 20px #00f0ff;
+}
+
+.hero .subheading {
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #cccccc;
+}
+
+.btn {
+    padding: 12px 30px;
+    background: linear-gradient(90deg, #00f0ff, #a259ff);
+    color: #121212;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* --- CONVERTER SECTION --- */
+section#timeconverter {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+    box-sizing: border-box;
 }
 
 .converter-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background: #1e1e1e;
+    padding: 40px 30px;
+    border-radius: 20px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+}
+
+.converter-container h2 {
+    font-family: 'Permanent Marker', cursive;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: #00f0ff;
+    text-shadow: 0 0 15px #00f0ff;
+}
+
+.input-group {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-label {
-    margin-top: 10px;
+.input-group label {
     margin-bottom: 5px;
-    font-weight: bold;
+    font-size: 1.1em;
+    color: #cccccc;
 }
 
-input, select, button {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+.input-group input,
+.input-group select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    outline: none;
+    font-size: 1em;
+    background: #121212;
+    color: #fff;
 }
 
-button {
-    background-color: #007bff;
-    color: white;
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #00f0ff;
+    box-shadow: 0 0 10px #00f0ff;
+}
+
+#convertBtn {
+    padding: 12px 25px;
+    background: linear-gradient(90deg, #00f0ff, #a259ff);
     border: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
+    color: #121212;
 }
 
-button:hover {
-    background-color: #0056b3;
+#convertBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00f0ff, 0 0 25px #a259ff;
 }
 
 #result {
     margin-top: 20px;
-    color: #333;
-    font-size: 1.2em;
+    font-size: 1.3em;
+    color: #00f0ff;
+}
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #1e1e1e;
+    border-top: 1px solid #333;
+    color: #aaaaaa;
+}
+
+/* --- RESPONSIVE --- */
+@media screen and (max-width: 600px) {
+    .hero .heading {
+        font-size: 3.5em;
+    }
+
+    .converter-container {
+        padding: 30px 20px;
+    }
 }

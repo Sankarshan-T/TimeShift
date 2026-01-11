@@ -3,25 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="mainstyle.css">
     <title>Time Shift</title>
 </head>
 <body>
-    <div class="converter-container">
-        <h1>Time Zone Converter</h1>
-        <label for="inputDatetime">Enter Date and Time:</label>
-        <input type="datetime-local" id="inputDatetime">
+    <header>
+        <nav>
+            <a href="#home" class="logo">Time Shift</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#timeconverter">Converter</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <label for="fromTimezone">From Time Zone</label>
-        <select id="fromTimezone"></select>
+    <section id="home">
+        <div class="hero">
+            <h1 class="heading">Time <br> Shift</h1>
+            <p class="subheading">Convert time zones instantly with style.</p>
+            <a href="#timeconverter" class="btn">Get Started</a>
+        </div>
+    </section>
 
-        <label for="toTimezone">To Time Zone:</label>
-        <select id="toTimezone"></select>
+    <section id="timeconverter">
+        <div class="converter-container">
+            <h2>Time Zone Converter</h2>
+            <div class="input-group">
+                <label for="inputDatetime">Enter Date and Time:</label>
+                <input type="datetime-local" id="inputDatetime">
+            </div>
 
-        <button id="convertBtn">Convert</button>
+            <div class="input-group">
+                <label for="fromTimezone">From Time Zone</label>
+                <select id="fromTimezone"></select>
+            </div>
 
-        <h2 id="result"></h2>
-    </div>
+            <div class="input-group">
+                <label for="toTimezone">To Time Zone:</label>
+                <select id="toTimezone"></select>
+            </div>
+
+            <button id="convertBtn">Convert</button>
+            <h3 id="result"></h3>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Time Shift | Built with 💜 by CoolCream</p>
+    </footer>
 
     <script src="main.js"></script>
 </body>
