@@ -1,58 +1,159 @@
-function populateTimeZones(selectId1, selectId2) {
-    const select1 = document.getElementById(selectId1);
-    const select2 = document.getElementById(selectId2);
-    const timezones = Intl.supportedValuesOf('timeZone');
+const TIMEZONES = {
+    US: "America/New_York",
+    CA: "America/Toronto",
+    GB: "Europe/London",
+    FR: "Europe/Paris",
+    DE: "Europe/Berlin",
+    IT: "Europe/Rome",
+    ES: "Europe/Madrid",
+    PT: "Europe/Lisbon",
+    IN: "Asia/Kolkata",
+    JP: "Asia/Tokyo",
+    CN: "Asia/Shanghai",
+    PK: "Asia/Karachi",
+    KR: "Asia/Seoul",
+    AE: "Asia/Dubai",
+    SA: "Asia/Riyadh",
+    IL: "Asia/Jerusalem",
+    ZA: "Africa/Johannesburg",
+    EG: "Africa/Cairo",
+    AU: "Australia/Sydney",
+    NZ: "Pacific/Auckland"
+};
+const ALIASES = {
+    "united states": "US",
+    "usa": "US",
+    "us": "US",
+    "new york": "US",
+    "nyc": "US",
 
-    timezones.forEach(zone => {
-        const option1 = document.createElement('option');
-        option1.value = zone;
-        option1.textContent = zone;
-        select1.appendChild(option1);
+    "canada": "CA",
+    "ca": "CA",
+    "toronto": "CA",
 
-        const option2 = document.createElement('option');
-        option2.value = zone;
-        option2.textContent = zone;
-        select2.appendChild(option2);
-    });
-}
+    "united kingdom": "GB",
+    "uk": "GB",
+    "gb": "GB",
+    "london": "GB",
 
-window.onload = () => {
-    populateTimeZones('fromTimezone', 'toTimezone');
+    "france": "FR",
+    "fr": "FR",
+    "paris": "FR",
 
-    const userZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    document.getElementById('fromTimezone').value = userZone;
-    document.getElementById('toTimezone').value = userZone;
+    "germany": "DE",
+    "de": "DE",
+    "berlin": "DE",
+
+    "italy": "IT",
+    "it": "IT",
+    "rome": "IT",
+
+    "spain": "ES",
+    "es": "ES",
+    "madrid": "ES",
+
+    "pakistan": "PK",
+    "pk": "PK",
+    "islamabad": "PK",
+    "karachi": "PK",
+    "lahore": "PK",
+
+    "portugal": "PT",
+    "pt": "PT",
+    "lisbon": "PT",
+
+    "india": "IN",
+    "in": "IN",
+    "delhi": "IN",
+
+    "japan": "JP",
+    "jp": "JP",
+    "tokyo": "JP",
+
+    "china": "CN",
+    "cn": "CN",
+    "shanghai": "CN",
+
+    "south korea": "KR",
+    "korea": "KR",
+    "kr": "KR",
+    "seoul": "KR",
+
+    "united arab emirates": "AE",
+    "uae": "AE",
+    "dubai": "AE",
+
+    "saudi arabia": "SA",
+    "sa": "SA",
+    "riyadh": "SA",
+
+    "israel": "IL",
+    "il": "IL",
+    "jerusalem": "IL",
+
+    "south africa": "ZA",
+    "za": "ZA",
+    "johannesburg": "ZA",
+
+    "egypt": "EG",
+    "eg": "EG",
+    "cairo": "EG",
+
+    "australia": "AU",
+    "au": "AU",
+    "sydney": "AU",
+
+    "new zealand": "NZ",
+    "nz": "NZ",
+    "auckland": "NZ"
 };
 
-function convertTime(inputTime, toTimezone) {
-    if (!inputTime) {
-        return "Please select a time...";
-    }
-
-    const date = new Date(inputTime);
-
-    const options = {
-        timeZone: toTimezone,
-        dateStyle: 'medium',
-        timeStyle: 'medium',
-        hour12: true
-    };
-
-    try {
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-        return formatter.format(date);
-    } catch (error) {
-        console.error("Invalid time zone:", toTimezone);
-        return "Invalid time zone selected.";
-    }
+function normalizeInput(value) {
+    return value
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
 }
 
-const convertBtn = document.getElementById('convertBtn');
+function resolveTimezone(input) {
+    const normalized = normalizeInput(input);
+    const countryCode = ALIASES[normalized];
+    return countryCode ? TIMEZONES[countryCode] : null;
+}
 
-convertBtn.addEventListener('click', () => {
-    const timeInput = document.getElementById('inputDatetime').value;
-    const zoneSelect = document.getElementById('toTimezone').value;
+const convertBtn = document.getElementById("convertBtn");
+const resultEl = document.getElementById("result");
 
-    const result = convertTime(timeInput, zoneSelect);
-    document.getElementById('result').innerText = result;
+convertBtn.addEventListener("click", () => {
+    const inputDatetime = document.getElementById("inputDatetime").value;
+    const fromInput = document.getElementById("fromCountry").value;
+    const toInput = document.getElementById("toCountry").value;
+
+    if (!inputDatetime || !fromInput || !toInput) {
+        resultEl.textContent = "⚠️ Please fill in all fields.";
+        return;
+    }
+
+    const fromTimezone = resolveTimezone(fromInput);
+    const toTimezone = resolveTimezone(toInput);
+
+    if (!fromTimezone || !toTimezone) {
+        resultEl.textContent = "❌ Location not supported yet.";
+        return;
+    }
+
+    const date = new Date(inputDatetime);
+
+    const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: toTimezone,
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    });
+
+    resultEl.textContent = `🕒 Converted Time: ${formatter.format(date)}`;
 });
